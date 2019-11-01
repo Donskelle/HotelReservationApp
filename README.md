@@ -1,8 +1,28 @@
 # Hotel Reservation App
 
-Demo reservation app with Hooks, Redux Hooks, CSS in JS (Styled Components, Tailwind), Simple Static JSON Server Backend
+Demo reservation app with Hooks, Redux Hooks, Reselect, CSS in JS (Styled Components, Tailwind), Simple Static JSON Server Backend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+I used npm, so please do as well. I've tested it with node 12 and 13.
+
+#### Install:
+
+npm i
+
+#### Start:
+
+npm start
+
+Create React App will run on localhost:8000 and backend on localhost:3000. Requests will be proxied to backend.
+
+#### Test:
+
+npm run test
+
+#### Lint
+
+npm run lint
+
+## This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 
