@@ -35,16 +35,16 @@ function App() {
                 '/rooms/createreservation'
               ]}
             >
-              <LazyReservationCreate fallback={<h1>Loading</h1>} />
+              <LazyReservationCreate />
             </PrivateRoute>
             <PrivateRoute path="/rooms/:id/reservations/:reservationId/edit">
-              <LazyReservationEdit fallback={<h1>Loading</h1>} />
+              <LazyReservationEdit />
             </PrivateRoute>
             <PrivateRoute path="/rooms/:id/reservations">
-              <LazyReservationList fallback={<h1>Loading</h1>} />
+              <LazyReservationList />
             </PrivateRoute>
             <PrivateRoute path="/rooms">
-              <LazyRoomList fallback={<h1>Loading</h1>} />
+              <LazyRoomList />
             </PrivateRoute>
             <Route path="/">
               <LazyLogin />
