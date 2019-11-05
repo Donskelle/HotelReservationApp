@@ -7,13 +7,24 @@ import {
   CREATE_ROOM_RESERVATION,
   EDIT_ROOM_RESERVATION,
   LOADING_UPDATE_ROOM,
-  ERROR_LOADING_UPDATE_ROOM
-} from '../actions/rooms';
-import { createNowIsoDate } from '../../utils/date';
+  ERROR_LOADING_UPDATE_ROOM,
+  Room,
+  RoomsActionTypes
+} from '../actions/rooms/types';
+import { RootState } from '../store';
 
 const initialState = {};
 
-export default function(state = initialState, action) {
+export interface State {
+  loadingRooms?: boolean
+  rooms?: Room []
+  loadingUpdateRoom?: boolean
+  errorLoadingUpdateRoom?: typeof Error
+  errorLoadingRooms?: typeof Error
+}
+
+
+export default function(state: State = initialState, action: RoomsActionTypes) : State {
   switch (action.type) {
     case LOADING_ROOMS: {
       const { errorLoadingRooms, ...rest } = state;
@@ -26,20 +37,17 @@ export default function(state = initialState, action) {
       return {
         ...state,
         loadingRooms: false,
-        rooms: action.rooms
+        rooms: action.payload
       };
     }
     case CREATE_ROOM_RESERVATION: {
-      const { id, booking } = action.payload;
-      const updatedRooms = state.rooms.map(room => {
-        if (room.id !== id) return room;
+      const { roomid, reservation } = action.payload;
+      const updatedRooms = (state.rooms || []).map((room: Room) : Room => {
+        if (room.id !== roomid) return room;
 
-        const currentDate = createNowIsoDate();
         return {
           ...room,
-          createdAt: currentDate,
-          updatedAt: currentDate,
-          reservations: [...room.reservations, booking]
+          reservations: [...room.reservations, reservation]
         };
       });
 
@@ -51,11 +59,10 @@ export default function(state = initialState, action) {
     }
     case EDIT_ROOM_RESERVATION: {
       const { roomId, reservationId, reservation } = action.payload;
-      const updatedRooms = state.rooms.map(room => {
+      const updatedRooms = (state.rooms || []).map(room => {
         if (room.id !== roomId) return room;
         return {
           ...room,
-          updatedAt: createNowIsoDate(),
           reservations: room.reservations.map(res => {
             if (res.id !== reservationId) return res;
             return {
@@ -82,14 +89,14 @@ export default function(state = initialState, action) {
     case ERROR_LOADING_UPDATE_ROOM: {
       return {
         ...state,
-        errorLoadingUpdateRoom: action.error,
+        errorLoadingUpdateRoom: action.payload,
         loadingUpdateRoom: false
       };
     }
     case ERROR_LOADING_ROOMS: {
       return {
         ...state,
-        errorLoadingRooms: action.error,
+        errorLoadingRooms: action.payload,
         loadingRooms: false
       };
     }
@@ -99,30 +106,24 @@ export default function(state = initialState, action) {
   }
 }
 
-const roomsList = state => {
-  return state.rooms.rooms || [];
-};
+const roomsList = (state: RootState) : Room [] => state.rooms.rooms || [];
 
 /**
  * Get Room by id
  * @param {number} id
  */
-export const getRoom = id => {
-  return createSelector(
+export const getRoom = (id: number) : () => (undefined | Room) => 
+  createSelector(
     roomsList,
-    list => {
-      const selectedRoom = list.find(room => room.id === id) || {};
-      return selectedRoom;
-    }
-  );
-};
+    list =>  list.find(room => room.id === id)
+  )
 
 /**
  * Get Reservation by room id and reservation id
  * @param {number} roomId
  * @param {number} reservationId
  */
-export const getRoomReservation = (roomId, reservationId) => {
+export const getRoomReservation = (roomId: number, reservationId: number) => {
   return createSelector(
     getRoom(roomId),
     room => {

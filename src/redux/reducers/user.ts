@@ -4,15 +4,24 @@ import {
   LOGOUT_USER,
   LOGOUT_ERROR,
   SET_USER,
-  SET_LANGUAGE
-} from '../actions/user';
+  SET_LANGUAGE,
+  UserActionTypes
+} from '../actions/user/types';
 
-export default function(state = { language: 'en' }, action) {
+export interface State {
+  language: string
+  loading?: boolean
+  loadingError?: typeof Error
+  logoutError?: typeof Error
+
+}
+
+export default function(state = { language: 'en' }, action : UserActionTypes) {
   switch (action.type) {
     case SET_USER: {
       return {
         ...state,
-        ...action.user,
+        ...action.payload,
         loading: false
       };
     }
@@ -25,14 +34,14 @@ export default function(state = { language: 'en' }, action) {
     case LOGIN_ERROR: {
       return {
         ...state,
-        loginError: action.error,
+        loginError: action.payload,
         loading: false
       };
     }
     case LOGOUT_ERROR: {
       return {
         ...state,
-        logoutError: action.error,
+        logoutError: action.payload,
         loading: false
       };
     }
@@ -45,7 +54,7 @@ export default function(state = { language: 'en' }, action) {
     case SET_LANGUAGE:
       return {
         ...state,
-        language: action.language
+        language: action.payload
       };
     default:
       return state;

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 
 import useForm from '../hooks/useForm';
-import { editRoomReservation } from '../redux/actions/rooms';
+import { editRoomReservation } from '../redux/actions/rooms/rooms.ts';
 import { getRoomReservation } from '../redux/reducers/rooms';
 import LoadRoomsComponent from '../components/LoadRoomsComponent';
 import H1 from '../components/typo/H1';

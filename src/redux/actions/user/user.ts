@@ -1,17 +1,21 @@
 import axios from 'axios';
+import { ThunkAction, ThunkDispatch } from 'redux-thunk'
+import { AnyAction } from 'redux';
 
-import { createAxiosAuthConfig } from '../../utils/authRequest';
 
-export const SET_USER = 'SET_USER';
-export const LOADING_USER = 'LOADING_USER';
-export const LOGIN_ERROR = 'LOGIN_ERROR';
-export const LOGOUT_ERROR = 'LOGOUT_ERROR';
-export const LOGOUT_USER = 'LOGOUT_USER';
-export const SET_LANGUAGE = 'SET_LANGUAGE';
+import { createAxiosAuthConfig } from '../../../utils/authRequest';
+import {
+  LOADING_USER,
+  SET_USER,
+  LOGOUT_USER,
+  LOGIN_ERROR,
+  LOGOUT_ERROR,
+} from './types'
+import { RootState } from '../../store';
+
 
 // eslint-disable-next-line no-unused-vars
-export const loginUser = (username, password) => dispatch => {
-  // const superSecureHash = password.toString();
+export const loginUser = (username:string, password:string) => (dispatch : ThunkDispatch<{}, {}, any>) => {
   dispatch({
     type: LOADING_USER
   });
@@ -26,7 +30,7 @@ export const loginUser = (username, password) => dispatch => {
       const { refreshToken, user } = data;
       dispatch({
         type: SET_USER,
-        user
+        payload: user
       });
       localStorage.setItem('refresh-token', refreshToken);
     })
@@ -38,7 +42,7 @@ export const loginUser = (username, password) => dispatch => {
     );
 };
 
-export const lookupRefreshToken = () => dispatch => {
+export const lookupRefreshToken = () => (dispatch: ThunkDispatch<{}, {}, any>) => {
   const refreshToken = localStorage.getItem('refresh-token');
   if (!refreshToken) return;
 
@@ -50,19 +54,19 @@ export const lookupRefreshToken = () => dispatch => {
     .then(({ data }) => {
       dispatch({
         type: SET_USER,
-        user: data.user
+        payload: data.user
       });
     });
 };
 
-export const logout = () => (dispatch, getState) => {
-  const config = createAxiosAuthConfig(getState);
+export const logout = () => (dispatch: ThunkDispatch<{}, {}, any>, getState: () => RootState) => {
+  const config = createAxiosAuthConfig(getState());
   dispatch({
     type: LOADING_USER
   });
 
   axios
-    // .post('/logout',
+    // .post('/logout', config)
     .get('/user/0', config)
     .then(() => {
       dispatch({

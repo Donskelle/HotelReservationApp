@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 
 import useForm from '../hooks/useForm';
-import { loginUser, lookupRefreshToken } from '../redux/actions/user';
+import { loginUser, lookupRefreshToken } from '../redux/actions/user/user';
 import H1 from '../components/typo/H1';
 import Button from '../components/Button';
 import PageWrapper from '../components/PageWrapper';

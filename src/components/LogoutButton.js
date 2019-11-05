@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
-import { logout } from '../redux/actions/user';
+import { logout } from '../redux/actions/user/user';
 import Button from './Button';
 
 export default function LogoutButton(props) {

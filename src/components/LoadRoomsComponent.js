@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { loadRooms as loadRoomsAction } from '../redux/actions/rooms';
+import { loadRooms as loadRoomsAction } from '../redux/actions/rooms/rooms';
 
 export default function LoadRoomsComponent({ children }) {
   const dispatch = useDispatch();
