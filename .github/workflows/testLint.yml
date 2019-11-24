@@ -1,4 +1,4 @@
-name: Node CI
+name: Test and Lint
 
 on: [push]
 
@@ -11,6 +11,8 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: 12.x
+    - name: Install
+      run: npm i
     - name: Lint
       run: npm run lint
     - name: Test
