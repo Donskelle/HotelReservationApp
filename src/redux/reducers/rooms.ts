@@ -112,7 +112,7 @@ const roomsList = (state: RootState) : Room [] => state.rooms.rooms || [];
  * Get Room by id
  * @param {number} id
  */
-export const getRoom = (id: number) : () => (undefined | Room) => 
+export const getRoom = (id: number) =>
   createSelector(
     roomsList,
     list =>  list.find(room => room.id === id)

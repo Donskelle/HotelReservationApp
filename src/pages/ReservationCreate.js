@@ -4,7 +4,7 @@ import { useParams, useHistory } from 'react-router-dom';
 
 import useForm from '../hooks/useForm';
 import { createRoomReservation } from '../redux/actions/rooms/rooms.ts';
-import { getRoom } from '../redux/reducers/rooms';
+import { getRoom } from '../redux/reducers/rooms.ts';
 import SelectRoomList from '../components/SelectRoomList';
 import LoadRoomsComponent from '../components/LoadRoomsComponent';
 import H1 from '../components/typo/H1';
