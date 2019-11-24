@@ -37,7 +37,7 @@ describe('User Actions', () => {
 
       expect(actions[0].type).toEqual('LOADING_USER');
       expect(actions[1].type).toEqual('SET_USER');
-      expect(actions[1].user.name).toEqual('Admin');
+      expect(actions[1].payload.name).toEqual('Admin');
     });
 
     it('error on loginUser', async () => {
