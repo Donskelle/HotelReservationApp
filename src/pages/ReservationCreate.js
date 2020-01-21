@@ -4,7 +4,7 @@ import { useParams, useHistory } from 'react-router-dom';
 
 import useForm from '../hooks/useForm';
 import { createRoomReservation } from '../redux/actions/rooms/rooms.ts';
-import { getRoom } from '../redux/reducers/rooms';
+import { getRoom } from '../redux/reducers/rooms.ts';
 import SelectRoomList from '../components/SelectRoomList';
 import LoadRoomsComponent from '../components/LoadRoomsComponent';
 import H1 from '../components/typo/H1';
@@ -14,8 +14,9 @@ import Form from '../components/Form';
 
 export default function ReserervationCreate() {
   const { id } = useParams();
+  const room = useSelector(getRoom(parseInt(id, 10)));
+  
   const [bookingFormData, setValue] = useForm();
-  const { name } = useSelector(getRoom(parseInt(id, 10)));
   const { loadingUpdateRoom, errorLoadingUpdateRoom } = useSelector(
     state => state.rooms
   );
@@ -58,10 +59,10 @@ export default function ReserervationCreate() {
   return (
     <LoadRoomsComponent>
       <PageWrapper>
-        <H1>Create Reservation{name ? ` at Room ${name}` : ''}</H1>
+        <H1>Create Reservation{room && room.name ? ` at Room ${room.name}` : ''}</H1>
         {errorLoadingUpdateRoom && <p>{errorLoadingUpdateRoom}</p>}
         <Form onSubmit={submitForm} disabled={loadingUpdateRoom}>
-          {!name && (
+          {!room && (
             <SelectRoomList required name="roomid" onChange={setValue} />
           )}
           <input
