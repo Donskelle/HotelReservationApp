@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
-import { getRoom } from '../redux/reducers/rooms';
+import { getRoom } from '../redux/reducers/rooms.ts';
 import LoadRoomsComponent from '../components/LoadRoomsComponent';
 import H1 from '../components/typo/H1';
 import PageWrapper from '../components/PageWrapper';

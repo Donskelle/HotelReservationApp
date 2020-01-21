@@ -24,7 +24,9 @@
     "styled-components": "^4.4.0",
     "swr": "^0.1.5",
     "tailwind.macro": "^1.0.0-alpha.10",
-    "typescript": "^3.6.4"
+    "typescript": "^3.6.4",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.15.1"
   },
   "scripts": {
     "start": "npm-run-all --parallel  start:*",
@@ -52,8 +54,6 @@
   },
   "devDependencies": {
     "babel-plugin-macros": "^2.6.1",
-    "enzyme": "^3.10.0",
-    "enzyme-adapter-react-16": "^1.15.1",
     "eslint": "^6.5.1",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-prettier": "^6.4.0",
